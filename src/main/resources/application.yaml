@@ -4,7 +4,7 @@ server:
 spring:
   sql:
     init:
-      mode: never
+      mode: ${SQL_INIT:never}
   application:
     name: vsu-project
   datasource:
@@ -14,7 +14,7 @@ spring:
   jpa:
     show-sql: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${DDL_AUTO:update}
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
