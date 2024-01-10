@@ -1,0 +1,37 @@
+version: '3.9'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  postgresql:
+    container_name: postgresql
+    image: postgres:12.2-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: vsu_project
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - app-network
+
+  app:
+    container_name: application
+    build:
+#      context: ./simple-spring-boot-app
+      dockerfile: Dockerfile
+    environment:
+      - "DB_HOST=postgresql"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=root"
+      - "SERVER_PORT=8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+    restart: always
+    networks:
+      - app-network
