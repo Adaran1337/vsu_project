@@ -15,7 +15,7 @@ services:
   app:
     container_name: application
     build:
-#      context: ./simple-spring-boot-app
+      context: ./
       dockerfile: Dockerfile
     environment:
       - "DB_HOST=postgresql"
