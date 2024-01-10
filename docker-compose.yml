@@ -1,9 +1,5 @@
 version: '3'
 
-networks:
-  app-network:
-    driver: bridge
-
 services:
   postgresql:
     container_name: postgresql
@@ -15,8 +11,6 @@ services:
     ports:
       - "5432:5432"
     restart: always
-    networks:
-      - app-network
 
   app:
     container_name: application
@@ -33,8 +27,6 @@ services:
     depends_on:
       - postgresql
     restart: always
-    networks:
-      - app-network
 
   nginx:
     restart: always
@@ -42,4 +34,4 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - web
+      - app
